@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
 const ApiRoute = require('./routes');
 // env
 require('dotenv').config();
-console.log('process.env.API_URL', process.env.API_URL);
 const app = express();
 mongoose.connect('mongodb://localhost/movieticket');
 

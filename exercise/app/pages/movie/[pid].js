@@ -388,7 +388,6 @@ class Home extends PureComponent {
                           for (i = 0; i < num; i++) {
                             elm = [...elm, <img key={`${banknote}-${i}`} className={banknote > 10 ? '': 'coin'} src={`/images/bank/${banknote}.${banknote > 10 ? 'jpg': 'png'}`} />];
                           }
-                          console.log('elm', elm);
                           return elm;
                         })
                       }

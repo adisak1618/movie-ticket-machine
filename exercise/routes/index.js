@@ -49,13 +49,6 @@ router.post('/buy/:movie_id', async (req, res) => {
   } catch ({ message}) {
     responseError(res, 'error', message);
   }
-  // const data = await sendEmail({
-  //   from: 'adisakchaiyakul@gmail.com',
-  //   to: 'ioatfarm@gmail.com',
-  //   subject: 'Hello from sender',
-  //   html: '<b>Do you receive this mail?</b>'
-  // });
-  // console.log('email data', data);
 });
 
 module.exports = router;
