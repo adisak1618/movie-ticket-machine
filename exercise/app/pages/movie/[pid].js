@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react';
 import { createForm } from 'rc-form';
 import { Button, Card, Elevation, Icon, NumericInput, InputGroup, FormGroup } from "@blueprintjs/core";
 import { Container } from 'components/container';
+import Link from 'next/link';
+import Request from 'helper/request';
+import CashExchange from 'helper/cash';
 import { MenuWidthScrollExpand } from 'components/menu';
 import { Row, Column } from 'components/flex'
 import styled from 'styled-components';
@@ -21,11 +24,14 @@ const Wrapper = styled.div`
     font-size: 1.2em;
     font-weight: bold;
   }
+  .how-to-bye {
+    color: #FFF;
+  }
 `;
 
 const Poster = styled.div`
-  width: 130px;
-  height: 200px;
+  width: 170px;
+  height: 250px;
   background: url(${props => props.src});
   background-size: cover;
 `;
@@ -48,6 +54,10 @@ const Result = styled.div`
     .detail {
       height: 100%;
       padding: 10px;
+      hr {
+        border: none;
+        border-top: 1px solid #ccc;
+      }
       > ${Row} {
         flex-direction: column;
         height: 100%;
@@ -137,63 +147,109 @@ const StepFlow = styled.div`
   }
 `;
 
-const SelectSeat = styled.div`
+const PaymentBox = styled.div`
+  img {
+    max-width: 100%;
+    padding:5px;
+    &.coin {
+      width: 100px;
+    }
+  }
+  text-align: left;
   padding: 30px;
-`;
-
-const CashPayment = styled.div`
-  padding: 30px;
+  h2 {
+    margin: 0px;
+    margin-bottom: 10px;
+  }
   .bp3-form-helper-text {
     color: red;
   }
 `;
 
+const Ticket = styled.div`
+  margin: 30px 0;
+  padding: 20px;
+  background-color: #edede7;
+  height: 200px;
+  background-image: radial-gradient(circle at center, #26323d 3px, transparent 4px), radial-gradient(circle at center, #26323d 3px, transparent 4px);
+  background-size: 14px 12px;
+  background-position: center -6px, center calc(100% + 6px);
+  background-repeat: repeat-x;
+`;
+
 class Home extends PureComponent {
+  static async getInitialProps({ query }) {
+    const { pid, time } = query;
+    const movies = await Request(`/movies/${pid}`);
+    return {
+      data: movies.data,
+      query
+    };
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       step: 0,
       seat: 1,
-      cash: 0
+      cash: 0,
+      change: null
     };
     this.onCheckout = this.onCheckout.bind(this);
   }
 
   onCheckout() {
+    const { data } = this.props;
+    const { price } = data;
+    const { seat } = this.state;
     this.props.form.validateFields((error, value) => {
       if(!error) {
-        alert('success');
+        console.log(value);
+        const change = CashExchange(Number(value.cash), Number(seat) * price);
+        if(change instanceof Error) {
+          alert('not enought money');
+        } else {
+          this.setState({ step: 2, change });
+        }
+        // alert('success');
       }
     })
   }
 
   render () {
-    const { step } = this.state;
-    const { form } = this.props;
+    const { step, seat, change } = this.state;
+    const { form, data, query } = this.props;
+    const { time } = query;
+    const { youtube, title, price, description, poster } = data;
     const { getFieldError, getFieldDecorator } = form;
     return(
       <Wrapper>
         <Container>
-          <iframe width="100%" height="315" src="https://www.youtube.com/embed/-oQO-kGU2lA?autoplay=0&showinfo=0&controls=0&controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          <iframe width="100%" height="315" src={`https://www.youtube.com/embed/${youtube}?autoplay=0&showinfo=0&controls=0&controls=0`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          <nav class="bp3-navbar bp3-dark">
+            <div class="bp3-navbar-group bp3-align-left">
+              <Link href="/">
+                <Button icon="arrow-left">BACK</Button>
+              </Link>
+            </div>
+            <div className="bp3-navbar-group bp3-align-right">
+              Blue - We Make Old Movie Alive
+            </div>
+          </nav>
           <Result>
             <Card className="moviecard bp3-dark" interactive={true} elevation={Elevation.TWO}>
-              {/* <span class="label1">
-                ปปช
-              </span>
-              <h3><a href="#">นายจรัล สารรักษ์ </a></h3>
-              <p>สถานะ: มีมูลความผิด</p>
-              <p>ข้อกล่าวหา: ทุจริตในการก่อสร้างเขื่อน</p> */}
               <Row>
                 <Column>
-                  <Poster src="/images/poster/mitty.jpg" />
+                  <Poster src={`/images/poster/${poster}`} />
                 </Column>
                 <Column fill>
                   <div className="detail">
                     <Row space-between>
                       <Column>
-                        <h3>The Secret Life of Wallter Mitty</h3>
+                        <h3>{title}</h3>
                         <label>Theatre 1 <Icon icon="volume-down" iconSize={18} /> Eng</label>
                         <hr />
+                        <p>{description}</p>
                       </Column>
                       <Column>
                         <Row space-between>
@@ -206,7 +262,7 @@ class Home extends PureComponent {
                           <Column>
                             <div className="price">
                               <Row space-between alignItem="center">
-                                <Column>299</Column>
+                                <Column>{price}</Column>
                                 <Column>BATH /<br/>SEAT</Column>
                               </Row>
                             </div>
@@ -218,7 +274,10 @@ class Home extends PureComponent {
                 </Column>
               </Row>
             </Card>
-            <h2>How to bye a ticket</h2>
+            <div className="how-to-bye">
+              <h2>How to bye a ticket</h2>
+              <p>1. select seats. 2. payment and put your infomation. 3. get your ticket</p>
+            </div>
             <StepFlow>
               <Row>
                 <Column fill>
@@ -243,53 +302,100 @@ class Home extends PureComponent {
                 </Column>
               </Row>
             </StepFlow>
-            {step === 0 ? (
-              <SelectSeat>
-                <Card elevation={Elevation.TWO}>
-                  <h2>เลือกจำนวนที่นั่ง</h2>
-                  <Row space-between>
-                    <Column fill>
-                      <NumericInput onValueChange={value => this.setState({ seat: value })} large max={10} value={1}/>
-                    </Column>
-                    <Column fill>
-                      <Button onClick={() => this.setState({ step: 1 })} large fill>Next</Button>
-                    </Column>
+            <Row space-between>
+              <Column fill>
+                <Ticket>
+                  <p style={{ textAlign: 'left' }}>Review Your information</p>
+                  <hr />
+                  <h3>{title}</h3>
+                  <Row space-around>
+                    <Column><p>Amount: {seat} seats</p></Column>
+                    <Column><p>Theatre: 1</p></Column>
                   </Row>
-                </Card>
-              </SelectSeat>
-            ): ''}
-            {step === 1 ? (
-              <CashPayment>
-                <Card elevation={Elevation.TWO}>
-                  <h2>ใส่เงินสดและอีเมล</h2>
-                  <FormGroup
-                      helperText={getFieldError('cash')}
-                      label="ใส่จำนวนเงิน"
-                      labelFor="text-input"
-                      // labelInfo="(required)"
-                      inline
-                  >
-                    {getFieldDecorator('cash', {
-                      validateTrigger: 'onBlur',
-                      rules: [{ required: true, message: 'กรุณากรอก' }],
-                    })(<NumericInput large/>)}
-                  </FormGroup>
-                  <FormGroup
-                      helperText={getFieldError('email')}
-                      label="อีเมล"
-                      labelFor="text-input"
-                      labelInfo="(เพื่อรับตั๋ว)"
-                      inline
-                  >
-                    {getFieldDecorator('email', {
-                      validateTrigger: 'onBlur',
-                      rules: [{ required: true, message: 'กรุณากรอก' }, { type: 'email', message: 'กรุณากรอกอีเมลให้ถูกต้อง' }],
-                    })(<InputGroup large />)}
-                  </FormGroup>
-                  <Button onClick={this.onCheckout} large fill>Checkout</Button>
-                </Card>
-              </CashPayment>
-            ): ''}
+                  <Row space-around>
+                    <Column><p>Showtime: {time}</p></Column>
+                    <Column><p>Total: { seat * price }</p></Column>
+                  </Row>
+                  <p>Thank you!</p>
+                  {/* <p>Amount: {seat} seats</p>
+                  <p>Theatre: 1</p> */}
+                  {/* <p>Showtime: {time}</p>
+                  <p>Total: { seat * price }</p> */}
+                  {/* <Card elevation={Elevation.TWO}>
+
+                  </Card> */}
+                </Ticket>
+              </Column>
+              <Column fill>
+                {step === 0 ? (
+                  <PaymentBox>
+                    <Card elevation={Elevation.TWO}>
+                      <h2>เลือกจำนวนที่นั่ง</h2>
+                      <NumericInput onValueChange={value => this.setState({ seat: value })} large value={seat} />
+                      <br />
+                      <Button intent="primary" onClick={() => this.setState({ step: 1 })} large fill>Next</Button>
+                    </Card>
+                  </PaymentBox>
+                ): ''}
+                {step === 1 ? (
+                  <PaymentBox>
+                    <Card elevation={Elevation.TWO}>
+                      <h2>ใส่เงินสดและอีเมล</h2>
+                      <FormGroup
+                          helperText={getFieldError('cash')}
+                          label="ใส่จำนวนเงิน"
+                          labelFor="text-input"
+                          // labelInfo="(required)"
+                          // inline
+                      >
+                        {getFieldDecorator('cash', {
+                          validateTrigger: 'onBlur',
+                          initialValue: '500',
+                          rules: [{ required: true, message: 'กรุณากรอก' }],
+                        })(<NumericInput buttonPosition="none" large/>)}
+                      </FormGroup>
+                      <FormGroup
+                          helperText={getFieldError('email')}
+                          label="อีเมล"
+                          labelFor="text-input"
+                          labelInfo="(เพื่อรับตั๋ว)"
+                          // inline
+                      >
+                        {getFieldDecorator('email', {
+                          validateTrigger: 'onBlur',
+                          initialValue: 'adisakchaiyakul@gmail.com',
+                          rules: [{ required: true, message: 'กรุณากรอก' }, { type: 'email', message: 'กรุณากรอกอีเมลให้ถูกต้อง' }],
+                        })(<InputGroup large />)}
+                      </FormGroup>
+                      <Button intent="primary" onClick={this.onCheckout} large fill>Checkout</Button>
+                    </Card>
+                  </PaymentBox>
+                ): ''}
+                {step === 2 ? (
+                  <PaymentBox>
+                    <Card elevation={Elevation.TWO}>
+                      <h2>Success</h2>
+                      <p>get your ticket in mailbox</p>
+                      <Link href="/"><Button fill intent="success">Go Home</Button></Link>
+                      <br />
+                      <p>don't forgot to get your change!</p>
+                      <br />
+                      {
+                        change.map(({ banknote, num }) => {
+                          let i;
+                          let elm =[];
+                          for (i = 0; i < num; i++) {
+                            elm = [...elm, <img key={`${banknote}-${i}`} className={banknote > 10 ? '': 'coin'} src={`/images/bank/${banknote}.${banknote > 10 ? 'jpg': 'png'}`} />];
+                          }
+                          console.log('elm', elm);
+                          return elm;
+                        })
+                      }
+                    </Card>
+                  </PaymentBox>
+                ): ''}
+              </Column>
+            </Row>
           </Result>
         </Container>
       </Wrapper>
