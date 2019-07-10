@@ -364,7 +364,7 @@ class Home extends PureComponent {
                       >
                         {getFieldDecorator('email', {
                           validateTrigger: 'onBlur',
-                          initialValue: 'adisakchaiyakul@gmail.com',
+                          initialValue: '',
                           rules: [{ required: true, message: 'กรุณากรอก' }, { type: 'email', message: 'กรุณากรอกอีเมลให้ถูกต้อง' }],
                         })(<InputGroup large />)}
                       </FormGroup>
