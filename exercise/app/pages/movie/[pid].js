@@ -193,7 +193,8 @@ class Home extends PureComponent {
       step: 0,
       seat: 1,
       cash: 0,
-      change: null
+      change: null,
+      buying: false
     };
     this.onCheckout = this.onCheckout.bind(this);
   }
@@ -209,6 +210,7 @@ class Home extends PureComponent {
         if(change instanceof Error) {
           alert('not enought money');
         } else {
+          this.setState({ buying: true });
           const data = await Request.post(`/buy/${pid}`, { email, seat, showtime: time });
           this.setState({ step: 2, change });
         }
@@ -218,7 +220,7 @@ class Home extends PureComponent {
   }
 
   render () {
-    const { step, seat, change } = this.state;
+    const { step, seat, change, buying } = this.state;
     const { form, data, query } = this.props;
     const { time } = query;
     const { youtube, title, price, description, poster } = data;
@@ -368,7 +370,7 @@ class Home extends PureComponent {
                           rules: [{ required: true, message: 'กรุณากรอก' }, { type: 'email', message: 'กรุณากรอกอีเมลให้ถูกต้อง' }],
                         })(<InputGroup large />)}
                       </FormGroup>
-                      <Button intent="primary" onClick={this.onCheckout} large fill>Checkout</Button>
+                      <Button loading={buying} intent="primary" onClick={this.onCheckout} large fill>Checkout</Button>
                     </Card>
                   </PaymentBox>
                 ): ''}
