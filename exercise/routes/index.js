@@ -15,4 +15,11 @@ router.get('/movies', (req, res) => {
   });
 });
 
+router.get('/movies/:id', (req, res) => {
+  movieData.findById(req.params.id, (err, data) => {
+    if(err) return responseError(res, 'finderror', err);
+    res.json(data);
+  });
+});
+
 module.exports = router;
