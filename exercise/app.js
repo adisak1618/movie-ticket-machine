@@ -7,9 +7,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 // router
 const ApiRoute = require('./routes');
-
+// env
+require('dotenv').config();
 const app = express();
-
 mongoose.connect('mongodb://localhost/movieticket');
 
 const port = process.env.PORT || 3000;
