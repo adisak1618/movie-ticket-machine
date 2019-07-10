@@ -187,7 +187,7 @@ class Home extends PureComponent {
                 <Card className="moviecard bp3-dark" elevation={Elevation.TWO}>
                   <Row>
                     <Column>
-                      <Poster src={`/images/poster/${poster}`} className={loading ? 'bp3-skeleton': ''} />
+                      <Poster src={poster} className={loading ? 'bp3-skeleton': ''} />
                     </Column>
                     <Column fill>
                       <div className="detail">
