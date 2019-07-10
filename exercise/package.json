@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "nextbuild": "next build",
+    "nextbuild": "next build app",
+    "build": "next build app",
     "dev": "nodemon -w app.js -w routes app.js",
     "start": "NODE_ENV=production node app.js"
   },
