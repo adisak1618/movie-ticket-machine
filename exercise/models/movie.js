@@ -5,7 +5,9 @@ const movieSchema = new Schema({
   title:  String,
   poster: String,
   price: Number,
+  youtube: String,
   description: String,
+  type: String,
   createDate: { type: Date, default: Date.now }
 });
 

@@ -22,7 +22,7 @@
           "components": "./app/components",
           // "layouts": "./layouts",
           // "config": "./config",
-          // "helper": "./helper"
+          "helper": "./app/helper"
         }
       }
     ],
