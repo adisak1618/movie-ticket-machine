@@ -24,7 +24,7 @@ const Wrapper = styled.div`
     font-size: 1.2em;
     font-weight: bold;
   }
-  .how-to-bye {
+  .how-to-buy {
     color: #FFF;
   }
 `;
@@ -199,16 +199,17 @@ class Home extends PureComponent {
   }
 
   onCheckout() {
-    const { data } = this.props;
+    const { data, query } = this.props;
+    const { pid, time } = query;
     const { price } = data;
     const { seat } = this.state;
-    this.props.form.validateFields((error, value) => {
+    this.props.form.validateFields(async (error, { cash, email }) => {
       if(!error) {
-        console.log(value);
-        const change = CashExchange(Number(value.cash), Number(seat) * price);
+        const change = CashExchange(Number(cash), Number(seat) * price);
         if(change instanceof Error) {
           alert('not enought money');
         } else {
+          const data = await Request.post(`/buy/${pid}`, { email, seat, showtime: time });
           this.setState({ step: 2, change });
         }
         // alert('success');
@@ -274,8 +275,8 @@ class Home extends PureComponent {
                 </Column>
               </Row>
             </Card>
-            <div className="how-to-bye">
-              <h2>How to bye a ticket</h2>
+            <div className="how-to-buy">
+              <h2>How to buy a ticket</h2>
               <p>1. select seats. 2. payment and put your infomation. 3. get your ticket</p>
             </div>
             <StepFlow>

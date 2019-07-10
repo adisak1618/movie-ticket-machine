@@ -4,7 +4,9 @@ const Schema = mongoose.Schema;
 const ticketSchema = new Schema({
   movie_id:  { type: Schema.ObjectId, ref: 'movies', required: true },
   email: { type: String, required: true },
-  price:   Number,
+  seat: Number,
+  price: Number,
+  showtime: String,
   createDate: { type: Date, default: Date.now }
 });
 
