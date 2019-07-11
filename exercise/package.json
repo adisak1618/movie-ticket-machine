@@ -9,7 +9,8 @@
     "start": "NODE_ENV=production node app.js",
     "unit": "jest .test.js --config=jest.config.json",
     "e2e": "mocha --timeout 30000 ./e2e/runner.js ./e2e/tests/*.spec.js",
-    "test": "npm run unit && npm run e2e"
+    "test": "npm run unit && npm run e2e",
+    "seed": "./node_modules/.bin/seed -u 'mongodb://localhost:27017/movieticket' --drop-database ./seeders"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.4.4",
@@ -40,6 +41,7 @@
     "enzyme-to-json": "^3.3.5",
     "jest": "^24.8.0",
     "mocha": "^6.1.4",
+    "mongo-seeding-cli": "^3.2.0",
     "puppeteer": "^1.18.1"
   }
 }
