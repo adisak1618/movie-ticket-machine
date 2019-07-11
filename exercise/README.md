@@ -1,5 +1,6 @@
 # Challenge : Movie Ticket Machine
 แบบทดสอบสร้างระบบซื้อตั๋วหนังผ่านตู้ขายตั๋วอัตโนมัติ
+https://movieticketcnx.herokuapp.com/
 
 ## Install
 1.  Clone repo นี้
@@ -9,7 +10,7 @@
 5. add .env file ตัวอย่างใน .env.example
 6. run seeding ```yarn run seed```
 7. ```yarn run dev```
-8. ```yarn run test```
+8. ```yarn run test``` *** for testing e2e please run ```yarn run dev``` first
 
 
 ### Technology
