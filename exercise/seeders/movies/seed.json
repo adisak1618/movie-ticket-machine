@@ -1,0 +1,72 @@
+[
+  {
+    "_id": {
+      "$oid": "5d25ae6159e0cee928b9bf97"
+    },
+    "title": "The Secret Life of Wallter Mitty",
+    "poster": "http://localhost:3000/images/poster/mitty.jpg",
+    "price": "120",
+    "youtube": "-oQO-kGU2lA",
+    "type": "now",
+    "description": "When his job along with that of his co-worker are threatened, Walter takes action in the real world embarking on a global journey that turns into an adventure more extraordinary than anything he could have ever imagined.",
+    "createDate": {
+      "$date": "2019-07-09T10:47:21.549Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5d25b0ed59e0cee928b9c06c"
+    },
+    "title": "Forrest Gump",
+    "poster": "http://localhost:3000/images/poster/forrest.jpg",
+    "price": "120",
+    "youtube": "8dcYw4OwCA0",
+    "type": "now",
+    "description": "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of an Alabama man with an IQ of 75.",
+    "createDate": {
+      "$date": "2019-07-09T10:47:21.549Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5d25b13059e0cee928b9c083"
+    },
+    "title": "The Shawshank Redemption",
+    "poster": "http://localhost:3000/images/poster/shawshank.jpg",
+    "price": "140",
+    "youtube": "GYaV7kFeO08",
+    "type": "now",
+    "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "createDate": {
+      "$date": "2019-07-09T10:47:21.549Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5d25f34c59e0cee928b9c7c5"
+    },
+    "title": "Big Fish",
+    "poster": "http://localhost:3000/images/poster/bigfish.jpg",
+    "price": "140",
+    "youtube": "M3YVTgTl-F0",
+    "type": "adt",
+    "description": "A frustrated son tries to determine the fact from fiction in his dying father's life.",
+    "createDate": {
+      "$date": "2019-07-09T10:47:21.549Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5d25f3dc59e0cee928b9c807"
+    },
+    "title": "City of God",
+    "poster": "http://localhost:3000/images/poster/cityofgod.jpg",
+    "price": "180",
+    "youtube": "dcUOO4Itgmw",
+    "type": "cs",
+    "description": "In the slums of Rio, two kids' paths diverge as one struggles to become a photographer and the other a kingpin.",
+    "createDate": {
+      "$date": "2019-07-09T10:47:21.549Z"
+    }
+  }
+]

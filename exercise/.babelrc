@@ -1,0 +1,42 @@
+{
+  "presets": [
+    "next/babel"
+  ],
+  "plugins": [
+    "inline-dotenv",
+    [
+      "babel-plugin-styled-components",
+      {
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./app"
+        ],
+        "alias": {
+          "components": "./app/components",
+          // "layouts": "./layouts",
+          // "config": "./config",
+          "helper": "./app/helper"
+        }
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ]
+  ]
+}

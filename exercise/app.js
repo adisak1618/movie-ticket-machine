@@ -7,13 +7,13 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 // router
 const ApiRoute = require('./routes');
-
+// env
+require('dotenv').config();
 const app = express();
-
-mongoose.connect('mongodb://localhost/movieticket');
 
 const port = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== 'production';
+mongoose.connect(dev ? 'mongodb://localhost/movieticket': process.env.MONGODB_URI);
 const nextApp = next({
   dev,
   dir: './app',
