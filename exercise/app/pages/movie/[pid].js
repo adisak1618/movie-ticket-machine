@@ -3,6 +3,7 @@ import Error from './_error';
 import { createForm } from 'rc-form';
 import { Button, Card, Elevation, Icon, NumericInput, InputGroup, FormGroup } from "@blueprintjs/core";
 import { Container } from 'components/container';
+import ChangeMoneyCom from 'components/changeMoney';
 import Link from 'next/link';
 import Request from 'helper/request';
 import CashExchange from 'helper/cash';
@@ -386,11 +387,7 @@ class Home extends PureComponent {
                       <br />
                       <p>don't forgot to get your change!</p>
                       <br />
-                      {
-                        change.map((banknote, index) => {
-                          return <img key={`${banknote}-${index}`} className={banknote > 10 ? '': 'coin'} src={`/images/bank/${banknote}.${banknote > 10 ? 'jpg': 'png'}`} />;
-                        })
-                      }
+                      <ChangeMoneyCom change={change} />
                     </Card>
                   </PaymentBox>
                 ): ''}
