@@ -20,4 +20,6 @@
 ### Architecture Design
   node + mongodb + next.js + restfull-api ตรงนี้ไม่ได้ซับซ้อนอะไร เพราะใช้ next.js restfull-api ก็ใช้ node.js เขียนยุแล้วเลยรวบ font-end/back-end ไว้ใน server เดียวกันเลย ทำให้ deploy ง่ายด้วย
 ### Deployment
-  ใช้ heroku ครับเพราะฟรีแล้วก็ง่าย add-on เยอะ ปกติถ้าโปรเจคส่วนตัวลองเขียนเล่นๆผมก็ใช้ heroku หมด เช่นพวก chatbot หรือเว็บอะไรง่ายๆไม่มี load มาก โปรเจคอื่นๆส่วนตัวเคยใช้ heroku, AWS, digital ประมาณนี้ครับ
+  - ใช้ heroku ครับเพราะฟรีแล้วก็ง่าย add-on เยอะ ปกติถ้าโปรเจคส่วนตัวลองเขียนเล่นๆผมก็ใช้ heroku หมด เช่นพวก chatbot หรือเว็บอะไรง่ายๆไม่มี load มาก โปรเจคอื่นๆส่วนตัวเคยใช้ heroku, AWS, digital ประมาณนี้ครับ
+  - deploy heroku ผมว่าคนตรวจคงทราบดีครับ แต่ปัญหาเล็กๆน้อยๆที่ผมเจอคือ project stucture นี้ code มันจะอยู่ใน folder exercise เลยต้องใช้คำสั่งนี้ในการ deploy แทนคำสั่งปกติ ```git subtree push --prefix exercise heroku master```
+  
