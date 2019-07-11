@@ -384,13 +384,8 @@ class Home extends PureComponent {
                       <p>don't forgot to get your change!</p>
                       <br />
                       {
-                        change.map(({ banknote, num }) => {
-                          let i;
-                          let elm =[];
-                          for (i = 0; i < num; i++) {
-                            elm = [...elm, <img key={`${banknote}-${i}`} className={banknote > 10 ? '': 'coin'} src={`/images/bank/${banknote}.${banknote > 10 ? 'jpg': 'png'}`} />];
-                          }
-                          return elm;
+                        change.map((banknote, index) => {
+                          return <img key={`${banknote}-${index}`} className={banknote > 10 ? '': 'coin'} src={`/images/bank/${banknote}.${banknote > 10 ? 'jpg': 'png'}`} />;
                         })
                       }
                     </Card>
