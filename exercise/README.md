@@ -3,11 +3,12 @@
 
 ## Install
 1.  Clone repo นี้
-2. ```yarn``` or ```npm install```
-3. start mongodb server ```mongod```
-4. run seeding ```yarn run seed```
-5. ```yarn run dev```
-6. ```yarn run test```
+2. ```cd exercise```
+3. ```yarn``` or ```npm install```
+4. start mongodb server ```mongod```
+5. run seeding ```yarn run seed```
+6. ```yarn run dev```
+7. ```yarn run test```
 
 
 ### Technology
