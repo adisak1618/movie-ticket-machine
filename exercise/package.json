@@ -6,7 +6,8 @@
     "nextbuild": "next build app",
     "build": "next build app",
     "dev": "nodemon -w app.js -w routes app.js",
-    "start": "NODE_ENV=production node app.js"
+    "start": "NODE_ENV=production node app.js",
+    "unit": "jest .test.js --config=jest.config.json"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.4.4",
@@ -29,5 +30,13 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
+    "jest": "^24.8.0",
+    "mocha": "^6.1.4"
   }
 }
