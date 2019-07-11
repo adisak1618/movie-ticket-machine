@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Error from './_error';
 import { createForm } from 'rc-form';
 import { Button, Card, Elevation, Icon, NumericInput, InputGroup, FormGroup } from "@blueprintjs/core";
 import { Container } from 'components/container';
@@ -178,8 +179,9 @@ const Ticket = styled.div`
 `;
 
 class Home extends PureComponent {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ query, res }) {
     const { pid, time } = query;
+    if(!time) res.statusCode = 404;
     const movies = await Request(`/movies/${pid}`);
     return {
       data: movies.data,
@@ -225,6 +227,7 @@ class Home extends PureComponent {
     const { time } = query;
     const { youtube, title, price, description, poster } = data;
     const { getFieldError, getFieldDecorator } = form;
+    if(!time) return <Error status={404} />;
     return(
       <Wrapper>
         <Container>
