@@ -6,9 +6,10 @@
 2. ```cd exercise```
 3. ```yarn``` or ```npm install```
 4. start mongodb server ```mongod```
-5. run seeding ```yarn run seed```
-6. ```yarn run dev```
-7. ```yarn run test```
+5. add .env file ตัวอย่างใน .env.example
+6. run seeding ```yarn run seed```
+7. ```yarn run dev```
+8. ```yarn run test```
 
 
 ### Technology
