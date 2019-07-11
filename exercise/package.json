@@ -8,7 +8,8 @@
     "dev": "nodemon -w app.js -w routes app.js",
     "start": "NODE_ENV=production node app.js",
     "unit": "jest .test.js --config=jest.config.json",
-    "e2e": "mocha --timeout 30000 ./e2e/runner.js ./e2e/tests/*.spec.js"
+    "e2e": "mocha --timeout 30000 ./e2e/runner.js ./e2e/tests/*.spec.js",
+    "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.4.4",
